@@ -5,9 +5,9 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern'); 
 
-const teamProfile = [];
+const teamMembers = [];
 
-const newManager = () => {
+const addManager = () => {
     return inquirer.prompt ([
         {
             type: 'input',
@@ -38,11 +38,11 @@ const newManager = () => {
         const  {name, id, email, officeNumber} = managerData; 
         const manager = new Manager (name, id, email, officeNumber);
 
-        teamProfile.push(manager);
+        teamMembers.push(manager);
     })
 };
 
-const newEmployee = () => {
+const addEmployee = () => {
 
     return inquirer.prompt ([
         {
@@ -103,14 +103,14 @@ const newEmployee = () => {
 
         }
 
-        teamProfile.push(employee); 
+        teamMembers.push(employee); 
 
         if (confirmAdd) {
-            return newEmployee(teamProfile);
+            return addEmployee(teamMembers);
 
         } 
         else {
-            return teamProfile;
+            return teamMembers;
 
         }
     })
@@ -124,14 +124,14 @@ const writeFile = data => {
             return;
         } 
         else {
-            console.log("Your team has officially been generated!")
+            console.log("Your team has been created!")
         }
     })
 }; 
 
 const initApp = () => {
-    newManager()
-        .then(newEmployee)
+    addManager()
+        .then(addEmployee)
         .then(teamProfile => { 
             return pageHTML(teamProfile);
 
