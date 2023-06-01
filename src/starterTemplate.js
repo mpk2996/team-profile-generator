@@ -1,97 +1,118 @@
-const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
+const createManager = function (manager) {
+    return `
+      <div class="flex justify-center">
+        <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
+          <div class="px-6 py-4 bg-gradient-to-r from-yellow-300 to-yellow-500">
+            <h3 class="text-xl font-bold text-gray-800">${manager.name}</h3>
+            <h4 class="text-gray-700 font-bold">Manager</h4>
+          </div>
+          <div class="px-6 py-4">
+            <p class="text-gray-700"><span class="font-bold">ID:</span> ${manager.id}</p>
+            <p class="text-gray-700"><span class="font-bold">Email:</span> ${manager.email}</p>
+            <p class="text-gray-700"><span class="font-bold">Office Number:</span> ${manager.officeNumber}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  const createEngineer = function (engineer) {
+    return `
+      <div class="flex justify-center">
+        <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
+          <div class="px-6 py-4 bg-gradient-to-r from-blue-300 to-blue-500">
+            <h3 class="text-xl font-bold text-gray-800">${engineer.name}</h3>
+            <h4 class="text-gray-700 font-bold">Engineer</h4>
+          </div>
+          <div class="px-6 py-4">
+            <p class="text-gray-700"><span class="font-bold">ID:</span> ${engineer.id}</p>
+            <p class="text-gray-700"><span class="font-bold">Email:</span> ${engineer.email}</p>
+            <p class="text-gray-700"><span class="font-bold">Github:</span> <a href="https://github.com/${engineer.github}" class="text-blue-500">${engineer.github}</a></p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  const createIntern = function (intern) {
+    return `
+      <div class="flex justify-center">
+        <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
+          <div class="px-6 py-4 bg-gradient-to-r from-green-300 to-green-500">
+            <h3 class="text-xl font-bold text-gray-800">${intern.name}</h3>
+            <h4 class="text-gray-700 font-bold">Intern</h4>
+          </div>
+          <div class="px-6 py-4">
+            <p class="text-gray-700"><span class="font-bold">ID:</span> ${intern.id}</p>
+            <p class="text-gray-700"><span class="font-bold">Email:</span> ${intern.email}</p>
+            <p class="text-gray-700"><span class="font-bold">School:</span> ${intern.school}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  
+  const createTeamPage = function (employeeCards) {   
+    return`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Team Profile Generator</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <style>
-            * {
-                box-sizing: border-box;
-            }
-            body {
-                font-family: sans-serif;
-                margin: 0;
-            }
-            .header {
-                background-color: rgb(62, 62, 238);
-                color: white;
-                padding: 20px;
-                text-align: center;
-            }
-            .card {
-                background-color: white;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                margin: 20px;
-                overflow: hidden;
-                width: 300px;
-            }
-            .card-header {
-                background-color: rgb(62, 62, 238);
-                color: white;
-                padding: 10px;
-                text-align: center;
-            }
-            .card-header h2 {
-                margin: 0;
-            }
-            .card-body {
-                padding: 10px;
-            }
-            .card-body ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-            .card-body li {
-                margin: 5px 0;
-            }
-            .card-body li span {
-                font-weight: bold;
-                margin-right: 5px;
-            }
-            .card-body li:last-child {
-                margin-bottom: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <header class="header">
-            <h1>My Team</h1>
+        <title>Team Profile</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+      </head>
+      <body class="bg-gray-200">
+        <header>
+          <nav class="bg-blue-500">
+            <div class="max-w-6xl mx-auto px-4">
+              <div class="flex items-center justify-between h-16">
+                <div class="flex">
+                  <span class="text-white text-xl font-bold">Team Profile</span>
+                </div>
+              </div>
+            </div>
+          </nav>
         </header>
         <main>
-            <div class="container">
-                ${generateCards(team)}
+          <div class="container mx-auto py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              ${employeeCards}
             </div>
+          </div>
         </main>
-    </body>
-    </html>
+      </body>
+      </html>
     `;
-    
-    // Generate HTML for each employee card
-    function generateCards(team) {
-        let cardsHTML = "";
-        for (let i = 0; i < team.length; i++) {
-            const employee = team[i];
-            let cardHTML = `
-                <div class="card">
-                    <div class="card-header">
-                        <h2>${employee.getName()}</h2>
-                        <h3>${employee.getRole()}</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><span>ID:</span>${employee.getId()}</li>z
-                            <li><span>Email:</span><a href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></li>
-                            ${generateRoleSpecificInfo(employee)}
-                        </ul>
-                    </div>
-                </div>
-            `;
-            cardsHTML += cardHTML;
-        }
-        return cardsHTML;
+  }
+  
+  const pageHTML = (data) => {
+    const employeesArray = [];
+  
+    for (let i = 0; i < data.length; i++) {
+      const employee = data[i];
+      const role = employee.getRole();
+  
+      if (role === 'Intern') {
+        const internCard = createIntern(employee);
+        employeesArray.push(internCard);
+      }
+  
+      if (role === 'Engineer') {
+        const engineerCard = createEngineer(employee);
+        employeesArray.push(engineerCard);
+      }
+      
+      if (role === 'Manager') {
+        const managerCard = createManager(employee);
+        employeesArray.push(managerCard);
+      }
     }
+  
+    const employeeCards = employeesArray.join('')
+    const generateTeam = createTeamPage(employeeCards); 
+    return generateTeam;
+  }
+  
+  module.exports = pageHTML;

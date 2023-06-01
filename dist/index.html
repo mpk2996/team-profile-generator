@@ -1,40 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+    <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <Title>My Team</Title>
-        <link rel="stylesheet" href="./style.css">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Team Profile</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     </head>
-    <body>
-        <div class="container">
-            <h1>Team Members</h1>
-            <div class="card-container">
-        </div>
-        
-        <div class="container">
-            <div class="card">
-              <div class="card-header">
-                John Doe
-                <br>
-                Software Engineer
-              </div>
-              <div class="card-body">
-                <strong>ID:</strong> 12345
-                <br>
-                <strong>Email:</strong> john.doe@example.com
-                <br>
-                <strong>Office Number:</strong> 123
+    <body class="bg-gray-400">
+      <header>
+        <nav class="bg-indigo-400">
+          <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-center h-16">
+              <div class="flex">
+                <span class="text-white text-3xl font-bold">My Team</span>
               </div>
             </div>
-            
-            <!-- Add more cards here as needed -->
           </div>
-
-
-
+        </nav>
+      </header>
+      <main>
+        <div class="container mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+    <div class="flex justify-center">
+      <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
+        <div class="bg-gradient-to-r from-indigo-600 to-indigo-400">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold text-white">John Smith</h3>
+            <h4 class="text-lg text-white opacity-75">Manager</h4>
+          </div>
+        </div>
+        <div class="px-6 py-4">
+          <p class="text-gray-700"><span class="font-bold">ID:</span> 1</p>
+          <p class="text-gray-700"><span class="font-bold">Email:</span> johnsmith@example.com</p>
+          <p class="text-gray-700"><span class="font-bold">Office Number:</span> 1234567</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="flex justify-center">
+      <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
+        <div class="bg-gradient-to-r from-indigo-600 to-indigo-400">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold text-white">Mike Kehoe</h3>
+            <h4 class="text-lg text-white opacity-75">Engineer</h4>
+          </div>
+        </div>
+        <div class="px-6 py-4">
+          <p class="text-gray-700"><span class="font-bold">ID:</span> 2</p>
+          <p class="text-gray-700"><span class="font-bold">Email:</span> mikekehoe@example.com</p>
+          <p class="text-gray-700"><span class="font-bold">Github:</span> <a href="https://github.com/mpk2996" class="text-indigo-500 hover:underline">mpk2996</a></p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="flex justify-center">
+      <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
+        <div class="bg-gradient-to-r from-indigo-600 to-indigo-400">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold text-white">Nora Thompson</h3>
+            <h4 class="text-lg text-white opacity-75">Intern</h4>
+          </div>
+        </div>
+        <div class="px-6 py-4">
+          <p class="text-gray-700"><span class="font-bold">ID:</span> 3</p>
+          <p class="text-gray-700"><span class="font-bold">Email:</span> norathompson@example.com</p>
+          <p class="text-gray-700"><span class="font-bold">School:</span> Missouri State</p>
+        </div>
+      </div>
+    </div>
+  
+          </div>
+        </div>
+      </main>
     </body>
-
-
-</html>
+    </html>

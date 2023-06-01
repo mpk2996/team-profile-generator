@@ -1,118 +1,144 @@
+const fs = require('fs'); 
 const inquirer = require('inquirer');
-const fs = require('fs');
+const pageHTML = require('./src/starterTemplate');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
+const Intern = require('./lib/Intern'); 
 
-// page html
-const generateHTML = require ('./src/starterTemplate');
+const teamProfile = [];
 
-const employees = [];
-
-function collectEmployeeInfo() {
-  inquirer
-    .prompt([
-      {
-        type: 'input',
-        name: 'name',
-        message: "Enter the team manager's name:",
-      },
-      {
-        type: 'input',
-        name: 'id',
-        message: "Enter the team manager's ID:",
-      },
-      {
-        type: 'input',
-        name: 'email',
-        message: "Enter the team manager's email:",
-      },
-      {
-        type: 'input',
-        name: 'officeNumber',
-        message: "Enter the team manager's office number:",
-      },
+const newManager = () => {
+    return inquirer.prompt ([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Who is the manager of this team?'
+           
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "Please enter the managers ID."
+           
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "Please enter the managers email.",
+    
+        },
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: "Please enter the manager's office number",
+            
+        }
     ])
-    .then((answers) => {
-      const { name, id, email, officeNumber } = answers;
-      const manager = new Manager(name, id, email, officeNumber);
-      employees.push(manager);
-      addEmployee();
-    });
-}
+    .then(managerData => {
+        const  {name, id, email, officeNumber} = managerData; 
+        const manager = new Manager (name, id, email, officeNumber);
 
-function addEmployee() {
-  inquirer
-    .prompt([
-      {
-        type: 'list',
-        name: 'role',
-        message: 'Select the employee role:',
-        choices: ['Engineer', 'Intern', 'Finish building my team'],
-      },
+        teamProfile.push(manager);
+    })
+};
+
+const newEmployee = () => {
+
+    return inquirer.prompt ([
+        {
+            type: 'list',
+            name: 'role',
+            message: "Please choose your employee's role",
+            choices: ['Engineer', 'Intern']
+        },
+        {
+            type: 'input',
+            name: 'name',
+            message: "What's the name of the employee?", 
+            
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "Please enter the employee's ID.",
+            
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "Please enter the employee's email.",
+            
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: "Please enter the employee's github username.",
+            when: (input) => input.role === "Engineer",
+            
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: "Please enter the intern's school",
+            when: (input) => input.role === "Intern",
+            
+        },
+        {
+            type: 'confirm',
+            name: 'confirmAdd',
+            message: 'Would you like to add more team members?',
+            default: false
+        }
     ])
-    .then((answers) => {
-      if (answers.role === 'Finish building my team') {
-        generateHTML();
-      } else {
-        promptEmployeeInfo(answers.role);
-      }
-    });
-}
+    .then(employeeData => {
+        let {name, id, email, role, github, school, confirmAdd} = employeeData;
+        let employee; 
 
-function promptEmployeeInfo(role) {
-  const roleSpecificQuestions = {
-    Engineer: {
-      name: "Enter the engineer's name:",
-      id: "Enter the engineer's ID:",
-      email: "Enter the engineer's email:",
-      specific: "Enter the engineer's GitHub username:",
-    },
-    Intern: {
-      name: "Enter the intern's name:",
-      id: "Enter the intern's ID:",
-      email: "Enter the intern's email:",
-      specific: "Enter the intern's school:",
-    },
-  };
+        if (role === "Engineer") {
+            employee = new Engineer (name, id, email, github);
 
-  inquirer
-    .prompt([
-      {
-        type: 'input',
-        name: 'name',
-        message: roleSpecificQuestions[role].name,
-      },
-      {
-        type: 'input',
-        name: 'id',
-        message: roleSpecificQuestions[role].id,
-      },
-      {
-        type: 'input',
-        name: 'email',
-        message: roleSpecificQuestions[role].email,
-      },
-      {
-        type: 'input',
-        name: 'specific',
-        message: roleSpecificQuestions[role].specific,
-      },
-    ])
-    .then((answers) => {
-      const { name, id, email, specific } = answers;
-      let employee;
+        } 
+        else if (role === "Intern") {
+            employee = new Intern (name, id, email, school);
 
-      if (role === 'Engineer') {
-        employee = new Engineer(name, id, email, specific);
-      } else if (role === 'Intern') {
-        employee = new Intern(name, id, email, specific);
-      }
+        }
 
-      employees.push(employee);
-      addEmployee();
-    });
-}
+        teamProfile.push(employee); 
 
-// Call the collectEmployeeInfo function to start the application
-collectEmployeeInfo();
+        if (confirmAdd) {
+            return newEmployee(teamProfile);
+
+        } 
+        else {
+            return teamProfile;
+
+        }
+    })
+
+};
+
+const writeFile = data => {
+    fs.writeFile('./dist/index.html', data, err => {
+        if (err) {
+            console.log(err);
+            return;
+        } 
+        else {
+            console.log("Your team has officially been generated!")
+        }
+    })
+}; 
+
+const initApp = () => {
+    newManager()
+        .then(newEmployee)
+        .then(teamProfile => { 
+            return pageHTML(teamProfile);
+
+    })
+        .then(pageHTML => {
+            return writeFile(pageHTML);
+
+  })};
+
+  initApp();
