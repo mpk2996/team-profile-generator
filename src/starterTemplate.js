@@ -1,10 +1,12 @@
-const createManager = function (manager) {
+const newManager = function (manager) {
     return `
       <div class="flex justify-center">
         <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
-          <div class="px-6 py-4 bg-gradient-to-r from-yellow-300 to-yellow-500">
-            <h3 class="text-xl font-bold text-gray-800">${manager.name}</h3>
-            <h4 class="text-gray-700 font-bold">Manager</h4>
+          <div class="bg-gradient-to-r from-indigo-600 to-indigo-400">
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-white">${manager.name}</h3>
+              <h4 class="text-lg text-white opacity-75">Manager</h4>
+            </div>
           </div>
           <div class="px-6 py-4">
             <p class="text-gray-700"><span class="font-bold">ID:</span> ${manager.id}</p>
@@ -16,31 +18,35 @@ const createManager = function (manager) {
     `;
   }
   
-  const createEngineer = function (engineer) {
+  const newEngineer = function (engineer) {
     return `
       <div class="flex justify-center">
         <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
-          <div class="px-6 py-4 bg-gradient-to-r from-blue-300 to-blue-500">
-            <h3 class="text-xl font-bold text-gray-800">${engineer.name}</h3>
-            <h4 class="text-gray-700 font-bold">Engineer</h4>
+          <div class="bg-gradient-to-r from-indigo-600 to-indigo-400">
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-white">${engineer.name}</h3>
+              <h4 class="text-lg text-white opacity-75">Engineer</h4>
+            </div>
           </div>
           <div class="px-6 py-4">
             <p class="text-gray-700"><span class="font-bold">ID:</span> ${engineer.id}</p>
             <p class="text-gray-700"><span class="font-bold">Email:</span> ${engineer.email}</p>
-            <p class="text-gray-700"><span class="font-bold">Github:</span> <a href="https://github.com/${engineer.github}" class="text-blue-500">${engineer.github}</a></p>
+            <p class="text-gray-700"><span class="font-bold">Github:</span> <a href="https://github.com/${engineer.github}" class="text-indigo-500 hover:underline">${engineer.github}</a></p>
           </div>
         </div>
       </div>
     `;
   }
   
-  const createIntern = function (intern) {
+  const newIntern = function (intern) {
     return `
       <div class="flex justify-center">
         <div class="w-80 h-96 bg-white shadow-lg rounded-lg overflow-hidden m-4 transform transition-all duration-300 hover:scale-105">
-          <div class="px-6 py-4 bg-gradient-to-r from-green-300 to-green-500">
-            <h3 class="text-xl font-bold text-gray-800">${intern.name}</h3>
-            <h4 class="text-gray-700 font-bold">Intern</h4>
+          <div class="bg-gradient-to-r from-indigo-600 to-indigo-400">
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-white">${intern.name}</h3>
+              <h4 class="text-lg text-white opacity-75">Intern</h4>
+            </div>
           </div>
           <div class="px-6 py-4">
             <p class="text-gray-700"><span class="font-bold">ID:</span> ${intern.id}</p>
@@ -63,13 +69,13 @@ const createManager = function (manager) {
         <title>Team Profile</title>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
       </head>
-      <body class="bg-gray-200">
+      <body class="bg-gray-400">
         <header>
-          <nav class="bg-blue-500">
+          <nav class="bg-indigo-400">
             <div class="max-w-6xl mx-auto px-4">
-              <div class="flex items-center justify-between h-16">
+              <div class="flex items-center justify-center h-16">
                 <div class="flex">
-                  <span class="text-white text-xl font-bold">Team Profile</span>
+                  <span class="text-white text-3xl font-bold">My Team</span>
                 </div>
               </div>
             </div>
@@ -95,17 +101,17 @@ const createManager = function (manager) {
       const role = employee.getRole();
   
       if (role === 'Intern') {
-        const internCard = createIntern(employee);
+        const internCard = newIntern(employee);
         employeesArray.push(internCard);
       }
   
       if (role === 'Engineer') {
-        const engineerCard = createEngineer(employee);
+        const engineerCard = newEngineer(employee);
         employeesArray.push(engineerCard);
       }
       
       if (role === 'Manager') {
-        const managerCard = createManager(employee);
+        const managerCard = newManager(employee);
         employeesArray.push(managerCard);
       }
     }
