@@ -27,7 +27,7 @@ At the root directory of the application, enter the command node index.js. Compl
 ![Sample Website Preview](./assets/team-profile-demo.png)
 
 Link to video demo of application:
-
+https://drive.google.com/file/d/1x37hIelul3abbiO205bh0yUFLidGhCRo/view
 
 ## Credits
 
